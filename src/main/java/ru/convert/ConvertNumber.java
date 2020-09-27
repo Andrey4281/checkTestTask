@@ -18,22 +18,22 @@ public class ConvertNumber {
         if (listNum.size() == 1) {
             result =  toStringLessTen(Integer.parseInt(listNum.get(0)), 0);
         } else if (listNum.size() == 2) {
-            int numbr = Integer.parseInt(listNum.get(0) + listNum.get(1));
+            int numbr = Integer.parseInt(String.format("%s%s", listNum.get(0), listNum.get(1)));
             if (numbr >= 11 && numbr <= 19) {
                 result = toStringLessTwenty(numbr);
             } else {
-                result = toStringLessHundred(Integer.parseInt(listNum.get(0)))
-                        + " " + toStringLessTen(Integer.parseInt(listNum.get(1)), 1);
+                result = String.format("%s %s", toStringLessHundred(Integer.parseInt(listNum.get(0))),
+                        toStringLessTen(Integer.parseInt(listNum.get(1)), 1));
             }
         } else if (listNum.size() == 3) {
 
             int numbr = Integer.parseInt(listNum.get(1) + listNum.get(2));
             if (numbr >= 11 && numbr <= 19) {
-                result = toStringLessThousand(Integer.parseInt(listNum.get(0))) + " " + toStringLessTwenty(numbr);
+                result = String.format("%s %s", toStringLessThousand(Integer.parseInt(listNum.get(0))), toStringLessTwenty(numbr));
             } else {
-                result = toStringLessThousand(Integer.parseInt(listNum.get(0)))
-                        + " " + toStringLessHundred(Integer.parseInt(listNum.get(1)))
-                        + " " + toStringLessTen(Integer.parseInt(listNum.get(2)), 1);
+                result = String.format("%s %s %s", toStringLessThousand(Integer.parseInt(listNum.get(0))),
+                         toStringLessHundred(Integer.parseInt(listNum.get(1))),
+                         toStringLessTen(Integer.parseInt(listNum.get(2)), 1));
             }
         }
         return result.replaceAll("\\s{2,}", " ").trim();
