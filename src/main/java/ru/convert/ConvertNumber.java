@@ -1,7 +1,13 @@
 package ru.convert;
 
 import java.util.List;
-
+/**
+ * Класс ConvertNumber создан для конвертации из число указанное цифраци в число указанного прописью.
+ * для вызва функционала надо вызвать метод numberToString.
+ * Например: входящее значение - "сто", исходящее - 100
+ *         ConvertString num = new ConvertString();
+ *         int result = num.numberToString("сто");
+ */
 public class ConvertNumber {
 
     public String numberToString(int num)  {
@@ -9,7 +15,7 @@ public class ConvertNumber {
         String result = "";
 
         if (num < 0 || num > 999) {
-            throw new IllegalArgumentException("Input number is not right. The number must be between 0 and 900.");
+            throw new IllegalArgumentException("Input number is not right. The number must be between 0 and 999.");
         }
 
         String numString =  Integer.toString(num);
