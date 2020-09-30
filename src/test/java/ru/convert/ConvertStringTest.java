@@ -153,14 +153,6 @@ public class ConvertStringTest {
     }
 
     @Test
-    public void whenNumber81() {
-        ConvertString num = new ConvertString();
-        int result = num.stringToNumber("восемьдесят один");
-
-        assertThat(result, is(81));
-    }
-
-    @Test
     public void whenNumber92() {
         ConvertString num = new ConvertString();
         int result = num.stringToNumber("девяносто два");
@@ -187,7 +179,7 @@ public class ConvertStringTest {
     @Test
     public void whenNumber313() {
         ConvertString num = new ConvertString();
-        int result = num.stringToNumber("тристо тринадцать");
+        int result = num.stringToNumber("триста тринадцать");
 
         assertThat(result, is(313));
     }
@@ -230,6 +222,46 @@ public class ConvertStringTest {
         int result = num.stringToNumber("семьсот девятнадцать");
 
         assertThat(result, is(719));
+    }
+
+    @Test
+    public void whenNumber325() {
+        ConvertString num = new ConvertString();
+        int result = num.stringToNumber("триста двадцать пять");
+
+        assertThat(result, is(325));
+    }
+
+    @Test
+    public void whenNumber17() {
+        ConvertString num = new ConvertString();
+        int result = num.stringToNumber("семнадцать");
+
+        assertThat(result, is(17));
+    }
+
+    @Test
+    public void whenNumber81() {
+        ConvertString num = new ConvertString();
+        int result = num.stringToNumber("восемьдесят один");
+
+        assertThat(result, is(81));
+    }
+
+    @Test
+    public void whenNumber3251() {
+        ConvertString num = new ConvertString();
+        int result = num.stringToNumber("Три два пять");
+
+        assertThat(result, is(325));
+    }
+
+    @Test
+    public void whenNumber57() {
+        ConvertString num = new ConvertString();
+        int result = num.stringToNumber("пять семь");
+
+        assertThat(result, is(57));
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -292,5 +324,29 @@ public class ConvertStringTest {
         int result = num.stringToNumber("девятьсот  девять");
 
         assertThat(result, is(999));
+    }
+
+    @Test
+    public void whenNumber22() {
+        ConvertString num = new ConvertString();
+        int result = num.stringToNumber("Две двойки");
+
+        assertThat(result, is(22));
+    }
+
+    @Test
+    public void whenNumber222() {
+        ConvertString num = new ConvertString();
+        int result = num.stringToNumber("Две двойки два");
+
+        assertThat(result, is(222));
+    }
+
+    @Test
+    public void whenNumber100Right() {
+        ConvertString num = new ConvertString();
+        int result = num.stringToNumber("Единица два нуля");
+
+        assertThat(result, is(100));
     }
 }
