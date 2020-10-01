@@ -2,7 +2,9 @@
 package ru.convert;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -16,13 +18,52 @@ import java.util.stream.IntStream;
 
 public class ConvertString {
 
+    private HashMap<String, Integer> map = new HashMap<>();
+
+
+    public ConvertString() {
+        init();
+    }
+
+    private void init() {
+        map.put("ноль", 0);
+        map.put("один", 1);
+        map.put("два", 2);
+        map.put("три", 3);
+        map.put("четыре", 4);
+        map.put("пять", 5);
+        map.put("шесть", 6);
+        map.put("семь", 7);
+        map.put("восемь", 8);
+        map.put("девять", 9);
+        map.put("десять", 10);
+        map.put("одиннадцать", 11);
+        map.put("двенадцать", 12);
+        map.put("тринадцать", 13);
+        map.put("четырнадцать", 14);
+        map.put("пятнадцать", 15);
+        map.put("шестнадцать", 16);
+        map.put("семнадцать", 17);
+        map.put("восемнадцать", 18);
+        map.put("девятнадцать", 19);
+        map.put("сто", 100);
+        map.put("сорок", 40);
+        map.put("девятьсот", 900);
+        //TODO сюда можно добавить 20 .. 90 100 и тд
+    }
+
+    //TODO слишком длинный метод, мб стоит разбить? А то так код тяжело читать
     public int stringToNumber(String num)  {
 
         int result = -1;
 
         String str = num.toLowerCase();
+        //TODO 1. Почему здесь не используются регулярное выражение для символа "пробел"???
+        // это мелочь но так - если между словами два пробела \\w
         List<String> listNum = List.of(str.split(" "));
 
+        //TODO зачем здесь if else?? Код выглядит нечитабельным, можно просто написать switch
+        //TODO еще более лучщее решение использовать паттерн Dispatcher с функциональными интерфейсами и хэш картой
         if (listNum.size() == 1) {
             return oneWord(listNum.get(0));
         } else if (listNum.size() == 2) {
@@ -129,6 +170,7 @@ public class ConvertString {
             throw new NullPointerException("input number is empty. The number must be between 0 and 999.");
         }
 
+        //TODO методы toNumberLessTen, toNumberLessTen
         int thousand = toNumberLessTen(first);
         int hundred = toNumberLessTen(second);
         int ten = toNumberLessTen(third);
@@ -140,22 +182,23 @@ public class ConvertString {
     }
 
     private int oneWord(String first) {
-        int result = -1;
 
         if (first.length() == 0) {
             throw new NullPointerException("input number is empty. The number must be between 0 and 999.");
         }
 
-        result = toNumberLessTen(first);
+        //TODO зачем это если можно использовать хэшкарты? Так лучще и читабельнее
+        Integer result = map.get(first);
+//        result = toNumberLessTen(first);
+//
+//        if (result == -1) {
+//            result = toNumberLessHundred(first);
+//            if (result == -1) {
+//                result = toNumberLessThousand(first);
+//            }
+//        }
 
-        if (result == -1) {
-            result = toNumberLessHundred(first);
-            if (result == -1) {
-                result = toNumberLessThousand(first);
-            }
-        }
-
-        if (result == -1) {
+        if (result == null) {
             throw new IllegalArgumentException("Input number is not right. The number must be between 0 and 999.");
         }
 
@@ -168,7 +211,8 @@ public class ConvertString {
             throw new NullPointerException("input number is empty. The number must be between 0 and 999.");
         }
 
-
+        //TODO зачем эти методы вообще? Вместо них можно занести все слова в словарь в init
+        //TODO и просто дергать map.get(first) и map.get(second)..Не нужно плодить лишний код
         int thousand = toNumberLessThousand(first);
         int hundred = toNumberLessHundred(second);
         int ten = -1;
@@ -212,6 +256,8 @@ public class ConvertString {
 
     private int toNumberLessTen(String num) {
 
+        //TODO зачем при вызове метода каждый раз создавать словарь?
+        //TODO весь словарь можно создать в методе init() один раз
         List<String> str = List.of("ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять",
                 "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать");
 
@@ -220,6 +266,8 @@ public class ConvertString {
 
     private int toNumberLessHundred(String num) {
 
+        //TODO зачем при вызове метода каждый раз создавать словарь?
+        //TODO весь словарь можно создать в методе init() один раз
         List<String> str = List.of("", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто");
 
         return str.indexOf(num) != -1 ? str.indexOf(num) * 10 : -1;
@@ -227,6 +275,8 @@ public class ConvertString {
 
     private int toNumberLessThousand(String num) {
 
+        //TODO зачем при вызове метода каждый раз создавать словарь?
+        //TODO весь словарь можно создать в методе init() один раз
         List<String> str = List.of("", "сто", "двести", "триста", "четыресто", "пятсот", "шестьсот", "семьсот", "восемьсот", "девятьсот");
 
         return str.indexOf(num) != -1 ? str.indexOf(num) * 100 : -1;
