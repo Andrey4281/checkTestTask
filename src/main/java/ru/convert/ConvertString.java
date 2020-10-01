@@ -170,7 +170,7 @@ public class ConvertString {
             throw new NullPointerException("input number is empty. The number must be between 0 and 999.");
         }
 
-        //TODO методы toNumberLessTen, toNumberLessTen
+        //TODO методы toNumberLessTen, toNumberLessTen не нужны, можно испоьзовать словарь, который создается в init
         int thousand = toNumberLessTen(first);
         int hundred = toNumberLessTen(second);
         int ten = toNumberLessTen(third);
